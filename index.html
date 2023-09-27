@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="inputstyles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <header><h1>A fazeres</h1></header>
+    <div class="to_dos">
+        <div class="container">
+        <ul id="taskList">
+        <li>
+            <div class="water">
+            <label for= "rangeInput" class="label">Ml de Agua Tomado:</label>
+            <input type="range" name="" id="rangeInput" min="0" max="2000" value="0">
+            <span id="rangeValue" class="waterNum">50</span> 
+            </div>
+        </li>
+        <li> <div>Refeições Feitas:
+            <div id="refeicoes">
+                <button class="manha"></button>
+                <button class="almoco"></button>
+                <button class="tarde"></button>
+                <button class="janta"></button>
+            </div>
+        </div>   
+        </li>
+        <li>Task 3</li>
+        <li>Task 4</li>
+        <li>Task 5</li>
+
+        <input type="text" id="task" placeholder="Add a new task">
+        <button id="addTask">Add</button>
+        </ul>
+    </div>
+</div>
+</body>
+
+<script> //script para mostrar o value do range ao lado
+    const rangeInput = document.getElementById("rangeInput");
+    const rangeValue = document.getElementById("rangeValue");
+
+    rangeValue.textContent = rangeInput.value;
+
+    rangeInput.addEventListener("input", function() {
+        rangeValue.textContent = rangeInput.value;
+    });
+</script>
+
+
+</html>
