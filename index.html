@@ -6,11 +6,14 @@
     <title>To-Do List</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="inputstyles.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="script.js"></script>
+    <script src="app.js"></script>
 </head>
 <body>
     <header><h1>A fazeres</h1></header>
@@ -26,14 +29,16 @@
         </li>
         <li> <div>Refeições Feitas:
             <div id="refeicoes">
-                <button class="manha"></button>
-                <button class="almoco"></button>
-                <button class="tarde"></button>
-                <button class="janta"></button>
+                <button class="manha" id="eatbtn"></button>
+                <button class="almoco" id="eatbtn"></button>
+                <button class="tarde" id="eatbtn"></button>
+                <button class="janta" id="eatbtn"></button>
             </div>
         </div>   
         </li>
-        <li>Task 3</li>
+        <li>Falei com meu pai: <button id="phone"><i class="fa fa-phone"></i></button>
+
+        </li>
         <li>Task 4</li>
         <li>Task 5</li>
 
