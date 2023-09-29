@@ -59,6 +59,7 @@
 <script> //script para mostrar o value do range ao lado
     const rangeInput = document.getElementById("rangeInput");
     const rangeValue = document.getElementById("rangeValue");
+    var dingding = new Audio('audios/dingding.mp3');
 
     rangeValue.textContent = rangeInput.value;
 
@@ -66,6 +67,9 @@
         rangeValue.textContent = rangeInput.value;
         var size = rangeValue.textContent/20
         document.getElementById("waterfilling").style.width = size.toString() + "%";
+        if(size===100){
+            dingding.play();
+        }
     });
 </script>
 
@@ -94,20 +98,23 @@
 
 <script> //script para trocar o background nos 3 botoes
     const phonebtn = document.getElementById("phone");
-    console.log(phonebtn)
     const bookbtn = document.getElementById("book");
     const heartbtn = document.getElementById("heart");
+    var ding = new Audio('audios/ding.mp3');
 
     phonebtn.addEventListener("click", function() {
-        document.getElementById("rectangle2").style.backgroundColor = "#5b02ff"
+        document.getElementById("rectangle2").style.backgroundColor = "#5b02ff";
+        ding.play();
     });
 
     bookbtn.addEventListener("click", function() {
-        document.getElementById("rectangle3").style.backgroundColor = "#ffee02"
+        document.getElementById("rectangle3").style.backgroundColor = "#ffee02";
+        ding.play();
     });
 
     heartbtn.addEventListener("click", function() {
-        document.getElementById("rectangle4").style.backgroundColor = "#ff0278"
+        document.getElementById("rectangle4").style.backgroundColor = "#ff0278";
+        ding.play();
     });
 </script>
 
