@@ -25,7 +25,7 @@
     <div class="rectangle" id="rectangle2"></div>
     <div class="rectangle" id="rectangle3"></div>
     <div class="rectangle" id="rectangle4"></div>
-    <div class="rectangle" id="rectangle5"></div>
+    <div class="rectangle" id="rectangle5"><div class="rectangle" id="waterfilling"></div></div>
     <header><h1>A fazeres</h1></header>
     <div class="to_dos">
         <div class="container">
@@ -64,6 +64,8 @@
 
     rangeInput.addEventListener("input", function() {
         rangeValue.textContent = rangeInput.value;
+        var size = rangeValue.textContent/20
+        document.getElementById("waterfilling").style.width = size.toString() + "%";
     });
 </script>
 
@@ -92,6 +94,7 @@
 
 <script> //script para trocar o background nos 3 botoes
     const phonebtn = document.getElementById("phone");
+    console.log(phonebtn)
     const bookbtn = document.getElementById("book");
     const heartbtn = document.getElementById("heart");
 

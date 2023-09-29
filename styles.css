@@ -63,6 +63,11 @@ body {
 #rectangle5 {
     background-color: rgba(27, 6, 255, 0.308);
 }
+
+#waterfilling {
+    background-color: rgb(21, 0, 255);
+    width: 0%;
+}
 h1 {
     z-index: 2;
     font-family: sans-serif; 
