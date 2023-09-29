@@ -1,6 +1,7 @@
 input[type=range] {
     height: 35px;
     -webkit-appearance: none;
+    background: transparent;
     margin: 10px 0;
     width: 100%;
   }
@@ -11,8 +12,8 @@ input[type=range] {
     width: 100%;
     height: 10px;
     cursor: pointer;
-    box-shadow: 1px 1px 1px #000000;
-    background: #3071A9;
+    box-shadow: 1px 1px 1px #00000004;
+    background: #3071a9;
     border-radius: 5px;
     border: 1px solid #000000;
   }
@@ -22,7 +23,7 @@ input[type=range] {
     height: 27px;
     width: 27px;
     border-radius: 26px;
-    background: #FFFFFF;
+    background: #ffffff;
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -9.5px;
@@ -45,7 +46,7 @@ input[type=range] {
     height: 27px;
     width: 27px;
     border-radius: 26px;
-    background: #FFFFFF;
+    background: #ffffff;
     cursor: pointer;
   }
   input[type=range]::-ms-track {
@@ -75,7 +76,7 @@ input[type=range] {
     height: 27px;
     width: 27px;
     border-radius: 26px;
-    background: #FFFFFF;
+    background: #ffffff;
     cursor: pointer;
   }
   input[type=range]:focus::-ms-fill-lower {
@@ -162,3 +163,80 @@ input[type=range] {
   text-shadow: 0 0 15px #5a02ff;
 }
 
+#book {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  line-height: 40px;
+  background: #cccccc;
+  border-radius: 50%;
+  font-size: 30px;
+  color: #585858;
+  transition: .5s;
+}
+
+#book:before {
+  content: '';
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  background: #ffee02;
+  transition: .5s;
+  transform: scale(.9);
+  z-index: -1;
+}
+
+#book:hover:before {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px #ffee02;
+  filter: blur(3px);
+}
+
+#book:hover {
+  color: #ffee02;
+  box-shadow: 0 0 15px #ffee02;
+  text-shadow: 0 0 15px #ffee02;
+}
+
+#heart {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  line-height: 40px;
+  background: #cccccc;
+  border-radius: 50%;
+  font-size: 30px;
+  color: #585858;
+  transition: .5s;
+}
+
+#heart:before {
+  content: '';
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  background: #ff0278;
+  transition: .5s;
+  transform: scale(.9);
+  z-index: -1;
+}
+
+#heart:hover:before {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px #ff0278;
+  filter: blur(3px);
+}
+
+#heart:hover {
+  color: #ff0278;
+  box-shadow: 0 0 15px #ff0278;
+  text-shadow: 0 0 15px #ff0278;
+}
