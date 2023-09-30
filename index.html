@@ -26,7 +26,7 @@
     <div class="rectangle" id="rectangle3"></div>
     <div class="rectangle" id="rectangle4"></div>
     <div class="rectangle" id="rectangle5"><div class="rectangle" id="waterfilling"></div></div>
-    <header><h1>A fazeres</h1></header>
+    <header><h1 id="titulo">A fazeres</h1></header>
     <div class="to_dos">
         <div class="container">
         <ul id="taskList">
@@ -39,10 +39,10 @@
         </li>
         <li> <div>Refeições Feitas:
             <div id="refeicoes">
-                <button class="manha" id="eatbtn"></button>
-                <button class="almoco" id="eatbtn"></button>
-                <button class="tarde" id="eatbtn"></button>
-                <button class="janta" id="eatbtn"></button>
+                <button class="manha" id="eatbtn" onclick="revealbfs()"></button>
+                <button class="almoco" id="eatbtn" onclick="reveallcnh()"></button>
+                <button class="tarde" id="eatbtn" onclick="revealtde()"></button>
+                <button class="janta" id="eatbtn" onclick="revealdner()"></button>
             </div>
         </div>   
         </li>
@@ -56,7 +56,35 @@
 </div>
 </body>
 
-<script> //script para mostrar o value do range ao lado
+<script> //script para mostrar o value do range ao lado e encher a agua
+let utilizado1 = false,
+utilizado2 = false,
+utilizado3 = false,
+utilizado4 = false,
+utilizado5 = false,
+utilizado6 = false,
+utilizado7 = false,
+utilizado8 = false;
+
+var parabens = new Audio('audios/parabens.mp3');
+parabens.volume = 0.4;
+
+function check(){
+    if(utilizado1 === true &&
+        utilizado2 === true &&
+        utilizado3 === true &&
+        utilizado4 === true &&
+        utilizado5 === true &&
+        utilizado6 === true &&
+        utilizado7 === true &&
+        utilizado8 === true){
+            document.getElementById("titulo").textContent = "Parabens!";
+            parabens.play()
+            console.log("congratulations");
+        }
+}
+
+
     const rangeInput = document.getElementById("rangeInput");
     const rangeValue = document.getElementById("rangeValue");
     var dingding = new Audio('audios/dingding.mp3');
@@ -68,54 +96,81 @@
         var size = rangeValue.textContent/20
         document.getElementById("waterfilling").style.width = size.toString() + "%";
         if(size===100){
-            dingding.play();
+            if(utilizado1 == false){
+                dingding.play();
+                utilizado1 = true;
+                check();
+            }
         }
     });
-</script>
+ // script para mostrar refeicoes
 
-<script>
-    const manhabtn = document.getElementsByClassName("manha");
-    const almocobtn = document.getElementsByClassName("almoco");
-    const tardebtn = document.getElementsByClassName("tarde");
-    const jantabtn = document.getElementsByClassName("janta");
-    manhabtn.addEventListener("click", function() {
-        document.getElementsById("bfs").style.opacity = "1";
-    });
-    almocobtn.addEventListener("click", function() {
-        document.getElementById("rectangle2").style.backgroundColor = "#5b02ff"
-    });
+function revealbfs() {
+        document.getElementById("bfs").style.opacity = "1";
+        if(utilizado2 == false){
+                utilizado2 = true;
+                check();
+            }
+    };
+function reveallcnh() {
+        document.getElementById("lnch").style.opacity = "1";
+        if(utilizado3 == false){
+                utilizado3 = true;
+                check();
+            }
+    };
+function revealtde() {
+        document.getElementById("tde").style.opacity = "1";
+        if(utilizado4 == false){
+                utilizado4 = true;
+                check();
+            }
+    };
+function revealdner() {
+        document.getElementById("dner").style.opacity = "1";
+        if(utilizado5 == false){
+                utilizado5 = true;
+                check();
+            }
+    };
 
-    tardebtn.addEventListener("click", function() {
-        document.getElementById("rectangle2").style.backgroundColor = "#5b02ff"
-    });
+ //script para trocar o background nos 3 botoes
 
-    jantabtn.addEventListener("click", function() {
-        document.getElementById("rectangle2").style.backgroundColor = "#5b02ff"
-    });
-
-
-</script>
-
-<script> //script para trocar o background nos 3 botoes
     const phonebtn = document.getElementById("phone");
     const bookbtn = document.getElementById("book");
     const heartbtn = document.getElementById("heart");
-    var ding = new Audio('audios/ding.mp3');
+    var ding1 = new Audio('audios/ding.mp3');
+    var ding2 = new Audio('audios/ding.mp3');
+    var ding3 = new Audio('audios/ding.mp3');
+   
 
     phonebtn.addEventListener("click", function() {
         document.getElementById("rectangle2").style.backgroundColor = "#5b02ff";
-        ding.play();
+        if(utilizado6 == false){
+                ding1.play();
+                utilizado6 = true;
+                check();
+            }
     });
 
     bookbtn.addEventListener("click", function() {
         document.getElementById("rectangle3").style.backgroundColor = "#ffee02";
-        ding.play();
+        if(utilizado7 == false){
+                ding2.play();
+                utilizado7 = true;
+                check();
+            }
     });
 
     heartbtn.addEventListener("click", function() {
         document.getElementById("rectangle4").style.backgroundColor = "#ff0278";
-        ding.play();
+        if(utilizado8 == false){
+                ding3.play();
+                utilizado8 = true;
+                check();
+            }
     });
+   
 </script>
 
 
