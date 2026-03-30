@@ -84,6 +84,8 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
 .btn:hover { border-color: var(--accent); background: rgba(255,107,53,0.06); box-shadow: 0 0 30px var(--accent-glow); }
 .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 700; }
 .btn-primary:hover { background: #ff8555; box-shadow: 0 0 40px var(--accent-glow); }
+.btn-primary-purple { background: var(--accent3); border-color: var(--accent3); color: #fff; font-weight: 700; }
+.btn-primary-purple:hover { background: #9b85ff; box-shadow: 0 0 40px rgba(123,97,255,0.4); }
 
 .btn-play { font-family: 'Space Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; padding: 10px 20px; border: 1px solid var(--accent); background: rgba(255,107,53,0.08); color: var(--accent); text-decoration: none; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; }
 .btn-play:hover { background: var(--accent); color: var(--bg); box-shadow: 0 0 30px var(--accent-glow); }
@@ -168,6 +170,7 @@ nav .container { display: flex; justify-content: space-between; align-items: cen
 .exp-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
 .exp-company { font-size: 14px; color: var(--accent); margin-bottom: 8px; }
 .exp-desc { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+
 
 .contact-section { text-align: center; padding: 100px 0; }
 .contact-title { font-size: clamp(32px, 5vw, 52px); font-weight: 700; letter-spacing: -1px; margin-bottom: 16px; }

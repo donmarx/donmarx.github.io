@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devlog Editor</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Don<span>soft</span></div>
+    <p class="login-label">Devlog Editor</p>
+    <form id="login-form">
+      <input type="password" id="login-input" class="form-input" placeholder="Password" autofocus>
+      <p class="login-error" id="login-error"></p>
+      <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Enter</button>
+    </form>
+  </div>
+</div>
+
+<div id="app" style="display:none;">
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="nav-logo">Don<span>soft</span></a>
+    <ul class="nav-links">
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="index.html">Portfolio</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="admin-main">
+  <div class="container">
+
+    <div class="admin-header">
+      <div>
+        <h1 class="admin-title">Devlog Editor</h1>
+        <p class="admin-sub">Changes are saved to your browser. Copy the export below to make them permanent.</p>
+      </div>
+      <div class="admin-header-actions">
+        <button class="btn btn-primary" id="btn-new">+ New Post</button>
+        <button class="btn" id="btn-reset">Reset to Defaults</button>
+      </div>
+    </div>
+
+    <!-- Post list -->
+    <div class="admin-list" id="admin-list"></div>
+
+    <!-- Editor panel -->
+    <div class="editor-panel" id="editor-panel" style="display:none;">
+      <div class="editor-panel-header">
+        <h2 class="editor-panel-title" id="editor-panel-title">New Post</h2>
+        <button class="editor-close" id="editor-close">✕</button>
+      </div>
+
+      <form id="post-form" class="post-form">
+        <input type="hidden" id="field-id">
+
+        <div class="form-row">
+          <label class="form-label">Title</label>
+          <input type="text" id="field-title" class="form-input" placeholder="Devlog #2: ...">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label">Excerpt</label>
+          <textarea id="field-excerpt" class="form-input form-textarea" placeholder="Short summary shown on the blog list..."></textarea>
+        </div>
+
+        <div class="form-row two-col">
+          <div>
+            <label class="form-label">Date</label>
+            <input type="text" id="field-date" class="form-input" placeholder="e.g. Mar 29, 2026">
+          </div>
+          <div>
+            <label class="form-label">Tags</label>
+            <div class="tag-checkboxes">
+              <label class="tag-check"><input type="checkbox" value="vectorama"> Vectorama</label>
+              <label class="tag-check"><input type="checkbox" value="fighter"> Top-Down Fighter</label>
+              <label class="tag-check"><input type="checkbox" value="design"> Game Design</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="form-label">Published</label>
+          <label class="toggle-label">
+            <input type="checkbox" id="field-published" class="toggle-input">
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            <span class="toggle-text" id="toggle-text">Draft</span>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save Post</button>
+          <button type="button" class="btn" id="btn-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Export -->
+    <div class="export-section">
+      <div class="export-header">
+        <span class="export-title">JSON Export</span>
+        <button class="btn" id="btn-copy">Copy</button>
+      </div>
+      <pre class="export-code" id="export-code"></pre>
+    </div>
+
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const DEFAULT_POSTS = [
+    {
+      id: 'vectorama-devlog-1',
+      title: 'Devlog #1: Online Multiplayer in a Turn-Based Racer',
+      excerpt: "Turn-based multiplayer is deceptively tricky. Here's how I approached latency, state sync, and keeping the race feeling snappy even over a network.",
+      date: 'Coming Soon',
+      tags: ['vectorama'],
+      published: false
+    },
+    {
+      id: 'fighter-devlog-1',
+      title: 'Devlog #1: Movement First, Everything Else Second',
+      excerpt: "I spent the first two months only working on movement. No combat, no art, no UI. Here's why that was the right call.",
+      date: 'Coming Soon',
+      tags: ['fighter'],
+      published: false
+    }
+  ];
+
+  // ---- Storage ----
+  function loadPosts() {
+    const stored = localStorage.getItem('devlog_posts');
+    return stored ? JSON.parse(stored) : DEFAULT_POSTS;
+  }
+
+  function savePosts(posts) {
+    localStorage.setItem('devlog_posts', JSON.stringify(posts));
+    renderAdminList();
+    updateExport();
+  }
+
+  // ---- Toast ----
+  function toast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 2200);
+  }
+
+  // ---- Tag helpers ----
+  function tagLabel(tag) {
+    if (tag === 'vectorama') return 'Vectorama';
+    if (tag === 'fighter') return 'Top-Down Fighter';
+    if (tag === 'design') return 'Game Design';
+    return tag;
+  }
+
+  // ---- Render admin list ----
+  function renderAdminList() {
+    const posts = loadPosts();
+    const list = document.getElementById('admin-list');
+
+    if (posts.length === 0) {
+      list.innerHTML = '<p class="no-posts">No posts yet. Click "+ New Post" to add one.</p>';
+      return;
+    }
+
+    list.innerHTML = posts.map((post, i) => `
+      <div class="admin-row">
+        <div class="admin-row-info">
+          <span class="admin-row-title">${post.title}</span>
+          <div class="admin-row-meta">
+            <span class="admin-row-date">${post.date}</span>
+            ${post.tags.map(t => `<span class="post-tag-small ${t}">${tagLabel(t)}</span>`).join('')}
+            <span class="admin-row-status ${post.published ? 'published' : 'draft'}">${post.published ? 'Published' : 'Draft'}</span>
+          </div>
+        </div>
+        <div class="admin-row-actions">
+          <button class="btn-icon" onclick="editPost(${i})" title="Edit">✎</button>
+          <button class="btn-icon danger" onclick="deletePost(${i})" title="Delete">✕</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ---- Editor open/close ----
+  function openEditor(post = null, index = null) {
+    const panel = document.getElementById('editor-panel');
+    const title = document.getElementById('editor-panel-title');
+
+    title.textContent = post ? 'Edit Post' : 'New Post';
+    document.getElementById('field-id').value = post ? post.id : '';
+    document.getElementById('field-title').value = post ? post.title : '';
+    document.getElementById('field-excerpt').value = post ? post.excerpt : '';
+    document.getElementById('field-date').value = post ? post.date : '';
+    document.getElementById('field-published').checked = post ? post.published : false;
+    updateToggleText();
+
+    // checkboxes
+    document.querySelectorAll('.tag-checkboxes input').forEach(cb => {
+      cb.checked = post ? post.tags.includes(cb.value) : false;
+    });
+
+    panel.dataset.editIndex = index !== null ? index : '';
+    panel.style.display = 'block';
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function closeEditor() {
+    document.getElementById('editor-panel').style.display = 'none';
+  }
+
+  function editPost(i) {
+    const posts = loadPosts();
+    openEditor(posts[i], i);
+  }
+
+  function deletePost(i) {
+    if (!confirm('Delete this post?')) return;
+    const posts = loadPosts();
+    posts.splice(i, 1);
+    savePosts(posts);
+    toast('Post deleted.');
+  }
+
+  function updateToggleText() {
+    const checked = document.getElementById('field-published').checked;
+    document.getElementById('toggle-text').textContent = checked ? 'Published' : 'Draft';
+  }
+
+  // ---- Form submit ----
+  document.getElementById('post-form').addEventListener('submit', e => {
+    e.preventDefault();
+
+    const title = document.getElementById('field-title').value.trim();
+    const excerpt = document.getElementById('field-excerpt').value.trim();
+    const date = document.getElementById('field-date').value.trim();
+    const published = document.getElementById('field-published').checked;
+    const tags = [...document.querySelectorAll('.tag-checkboxes input:checked')].map(cb => cb.value);
+    let id = document.getElementById('field-id').value.trim();
+
+    if (!title) { toast('Title is required.'); return; }
+    if (tags.length === 0) { toast('Select at least one tag.'); return; }
+
+    if (!id) {
+      id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    }
+
+    const posts = loadPosts();
+    const editIndex = document.getElementById('editor-panel').dataset.editIndex;
+    const post = { id, title, excerpt, date: date || 'Coming Soon', tags, published };
+
+    if (editIndex !== '') {
+      posts[parseInt(editIndex)] = post;
+      toast('Post updated.');
+    } else {
+      posts.push(post);
+      toast('Post added.');
+    }
+
+    savePosts(posts);
+    closeEditor();
+  });
+
+  // ---- Export ----
+  function updateExport() {
+    const posts = loadPosts();
+    document.getElementById('export-code').textContent = JSON.stringify(posts, null, 2);
+  }
+
+  document.getElementById('btn-copy').addEventListener('click', () => {
+    const text = document.getElementById('export-code').textContent;
+    navigator.clipboard.writeText(text).then(() => toast('Copied to clipboard!'));
+  });
+
+  // ---- Buttons ----
+  document.getElementById('btn-new').addEventListener('click', () => openEditor());
+  document.getElementById('editor-close').addEventListener('click', closeEditor);
+  document.getElementById('btn-cancel').addEventListener('click', closeEditor);
+  document.getElementById('field-published').addEventListener('change', updateToggleText);
+
+  document.getElementById('btn-reset').addEventListener('click', () => {
+    if (!confirm('Reset all posts to defaults? This cannot be undone.')) return;
+    localStorage.removeItem('devlog_posts');
+    savePosts(loadPosts());
+    toast('Reset to defaults.');
+  });
+
+  // ---- Init ----
+  renderAdminList();
+  updateExport();
+</script>
+
+</div> <!-- /#app -->
+
+<script>
+  const PASSWORD_HASH = '9b88904f85731a060a35c29faf2ae32a0f72a1a51efed9fc8d8eec3e6ebb7a35'; 
+
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function checkAuth() {
+    if (sessionStorage.getItem('admin_auth') === '1') {
+      unlock();
+      return;
+    }
+    document.getElementById('login-screen').style.display = 'flex';
+  }
+
+  function unlock() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+  }
+
+  document.getElementById('login-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const val = document.getElementById('login-input').value;
+    const hash = await sha256(val);
+    if (hash === PASSWORD_HASH) {
+      sessionStorage.setItem('admin_auth', '1');
+      unlock();
+    } else {
+      const err = document.getElementById('login-error');
+      err.textContent = 'Wrong password.';
+      document.getElementById('login-input').value = '';
+      document.getElementById('login-input').focus();
+      setTimeout(() => { err.textContent = ''; }, 2500);
+    }
+  });
+
+  checkAuth();
+</script>
+
+</body>
+</html>

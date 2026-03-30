@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog | Marx Xavier</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="nav-logo">Don<span>soft</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#skills">Skills</a></li>
+      <li><a href="blog.html" class="nav-active">Blog</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="blog-hero">
+  <div class="container">
+    <div class="blog-hero-tag">Devlog &amp; Writing</div>
+    <h1 class="blog-hero-title">Blog</h1>
+    <p class="blog-hero-sub">Notes on what I believe to be good game design and making games that feel good to play.</p>
+  </div>
+</section>
+
+<main class="blog-main">
+  <div class="container">
+
+    <div class="blog-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="vectorama">Vectorama</button>
+      <button class="filter-btn" data-filter="fighter">Top-Down Fighter</button>
+      <button class="filter-btn" data-filter="design">Game Design</button>
+    </div>
+
+    <div class="post-list" id="post-list">
+      <!-- posts injected by JS -->
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p class="footer-text">Marx Xavier &copy; 2026 &mdash; Built with passion, shipped with care.</p>
+  </div>
+</footer>
+
+<script>
+  const DEFAULT_POSTS = [
+    {
+      id: 'vectorama-devlog-1',
+      title: 'Devlog #1: Online Multiplayer in a Turn-Based Racer',
+      excerpt: "Turn-based multiplayer is deceptively tricky. Here's how I approached latency, state sync, and keeping the race feeling snappy even over a network.",
+      date: 'Coming Soon',
+      tags: ['vectorama'],
+      published: false
+    },
+    {
+      id: 'fighter-devlog-1',
+      title: 'Devlog #1: Movement First, Everything Else Second',
+      excerpt: "I spent the first two months only working on movement. No combat, no art, no UI. Here's why that was the right call.",
+      date: 'Coming Soon',
+      tags: ['fighter'],
+      published: false
+    }
+  ];
+
+  function loadPosts() {
+    const stored = localStorage.getItem('devlog_posts');
+    return stored ? JSON.parse(stored) : DEFAULT_POSTS;
+  }
+
+  function tagLabel(tag) {
+    if (tag === 'vectorama') return 'Vectorama';
+    if (tag === 'fighter') return 'Top-Down Fighter';
+    if (tag === 'design') return 'Game Design';
+    return tag;
+  }
+
+  function renderPosts(filter = 'all') {
+    const posts = loadPosts();
+    const list = document.getElementById('post-list');
+
+    const filtered = filter === 'all'
+      ? posts
+      : posts.filter(p => p.tags.includes(filter));
+
+    if (filtered.length === 0) {
+      list.innerHTML = '<p class="no-posts">No posts here yet.</p>';
+      return;
+    }
+
+    list.innerHTML = filtered.map(post => `
+      <article class="post-card reveal" data-tags="${post.tags.join(' ')}">
+        <div class="post-card-left">
+          <span class="post-date">${post.date}</span>
+          <div class="post-tags">
+            ${post.tags.map(t => `<span class="post-tag ${t}">${tagLabel(t)}</span>`).join('')}
+          </div>
+        </div>
+        <div class="post-card-right">
+          <h2 class="post-title">${post.title}</h2>
+          <p class="post-excerpt">${post.excerpt}</p>
+          ${post.published
+            ? `<a href="posts/${post.id}.html" class="post-link">Read Post →</a>`
+            : `<span class="post-link disabled">Not published yet</span>`}
+        </div>
+      </article>
+    `).join('');
+
+    // trigger reveal animations
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.post-card').forEach(el => {
+        observer.observe(el);
+      });
+    });
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderPosts(btn.dataset.filter);
+    });
+  });
+
+  renderPosts();
+</script>
+
+</body>
+</html>
