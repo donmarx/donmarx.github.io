@@ -42,7 +42,7 @@
     <div class="admin-header">
       <div>
         <h1 class="admin-title">Devlog Editor</h1>
-        <p class="admin-sub">Changes are saved to your browser. Copy the export below to make them permanent.</p>
+        <p class="admin-sub">Copy the export below and paste it into <strong>posts-data.js</strong> to publish for everyone.</p>
       </div>
       <div class="admin-header-actions">
         <button class="btn btn-primary" id="btn-new">+ New Post</button>
@@ -128,25 +128,8 @@
 
 <div class="toast" id="toast"></div>
 
+<script src="posts-data.js"></script>
 <script>
-  const DEFAULT_POSTS = [
-    {
-      id: 'vectorama-devlog-1',
-      title: 'Devlog #1: Online Multiplayer in a Turn-Based Racer',
-      excerpt: "Turn-based multiplayer is deceptively tricky. Here's how I approached latency, state sync, and keeping the race feeling snappy even over a network.",
-      date: 'Coming Soon',
-      tags: ['vectorama'],
-      published: false
-    },
-    {
-      id: 'fighter-devlog-1',
-      title: 'Devlog #1: Movement First, Everything Else Second',
-      excerpt: "I spent the first two months only working on movement. No combat, no art, no UI. Here's why that was the right call.",
-      date: 'Coming Soon',
-      tags: ['fighter'],
-      published: false
-    }
-  ];
 
   // ---- Storage ----
   function loadPosts() {
