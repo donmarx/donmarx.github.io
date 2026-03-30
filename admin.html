@@ -73,6 +73,16 @@
           <textarea id="field-excerpt" class="form-input form-textarea" placeholder="Short summary shown on the blog list..."></textarea>
         </div>
 
+        <div class="form-row">
+          <label class="form-label">Image Path / URL</label>
+          <input type="text" id="field-image" class="form-input" placeholder="e.g. images/devlog1.png or https://...">
+        </div>
+
+        <div class="form-row">
+          <label class="form-label">Body (Markdown)</label>
+          <textarea id="field-body" class="form-input form-textarea form-textarea-body" placeholder="Write your post in Markdown. Use ![alt](images/foo.png) to embed images."></textarea>
+        </div>
+
         <div class="form-row two-col">
           <div>
             <label class="form-label">Date</label>
@@ -203,6 +213,8 @@
     document.getElementById('field-id').value = post ? post.id : '';
     document.getElementById('field-title').value = post ? post.title : '';
     document.getElementById('field-excerpt').value = post ? post.excerpt : '';
+    document.getElementById('field-image').value = post ? (post.image || '') : '';
+    document.getElementById('field-body').value = post ? (post.body || '') : '';
     document.getElementById('field-date').value = post ? post.date : '';
     document.getElementById('field-published').checked = post ? post.published : false;
     updateToggleText();
@@ -245,6 +257,8 @@
 
     const title = document.getElementById('field-title').value.trim();
     const excerpt = document.getElementById('field-excerpt').value.trim();
+    const image = document.getElementById('field-image').value.trim();
+    const body = document.getElementById('field-body').value;
     const date = document.getElementById('field-date').value.trim();
     const published = document.getElementById('field-published').checked;
     const tags = [...document.querySelectorAll('.tag-checkboxes input:checked')].map(cb => cb.value);
@@ -259,7 +273,7 @@
 
     const posts = loadPosts();
     const editIndex = document.getElementById('editor-panel').dataset.editIndex;
-    const post = { id, title, excerpt, date: date || 'Coming Soon', tags, published };
+    const post = { id, title, excerpt, date: date || 'Coming Soon', tags, published, ...(image && { image }), ...(body && { body }) };
 
     if (editIndex !== '') {
       posts[parseInt(editIndex)] = post;

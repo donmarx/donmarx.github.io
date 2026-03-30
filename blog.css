@@ -97,6 +97,15 @@
 
 .post-card:first-child { border-top: 1px solid var(--border); }
 
+.post-card-image {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
 .post-card:hover { background: transparent; }
 .post-card:hover .post-title { color: var(--accent3); }
 

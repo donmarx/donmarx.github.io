@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post | Donsoft</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="post.css">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="container">
+    <a href="../index.html" class="nav-logo">Don<span>soft</span></a>
+    <ul class="nav-links">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#experience">Experience</a></li>
+      <li><a href="../index.html#skills">Skills</a></li>
+      <li><a href="../blog.html">Blog</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="post-main">
+  <div class="container post-container">
+
+    <a href="../blog.html" class="post-back">← Back to Blog</a>
+
+    <div id="post-content">
+      <!-- injected by JS -->
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p class="footer-text">Marx Xavier &copy; 2026 &mdash; Built with passion, shipped with care.</p>
+  </div>
+</footer>
+
+<script>
+  const DEFAULT_POSTS = [
+    {
+      id: 'vectorama-devlog-1',
+      title: 'Devlog #1: Online Multiplayer in a Turn-Based Racer',
+      excerpt: "Turn-based multiplayer is deceptively tricky. Here's how I approached latency, state sync, and keeping the race feeling snappy even over a network.",
+      date: 'Coming Soon',
+      tags: ['vectorama'],
+      published: false
+    },
+    {
+      id: 'fighter-devlog-1',
+      title: 'Devlog #1: Movement First, Everything Else Second',
+      excerpt: "I spent the first two months only working on movement. No combat, no art, no UI. Here's why that was the right call.",
+      date: 'Coming Soon',
+      tags: ['fighter'],
+      published: false
+    }
+  ];
+
+  function loadPosts() {
+    const stored = localStorage.getItem('devlog_posts');
+    return stored ? JSON.parse(stored) : DEFAULT_POSTS;
+  }
+
+  function tagLabel(tag) {
+    if (tag === 'vectorama') return 'Vectorama';
+    if (tag === 'fighter') return 'Top-Down Fighter';
+    if (tag === 'design') return 'Game Design';
+    return tag;
+  }
+
+  function render() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    const posts = loadPosts();
+    const post = posts.find(p => p.id === id);
+    const el = document.getElementById('post-content');
+
+    if (!post) {
+      el.innerHTML = '<p class="post-not-found">Post not found.</p>';
+      return;
+    }
+
+    document.title = `${post.title} | Donsoft`;
+
+    const bodyHtml = post.body ? marked.parse(post.body) : '';
+
+    el.innerHTML = `
+      <header class="post-header">
+        ${post.image ? `<img class="post-hero-image" src="../${post.image}" alt="${post.title}">` : ''}
+        <div class="post-meta">
+          <span class="post-date">${post.date}</span>
+          <div class="post-tags">
+            ${post.tags.map(t => `<span class="post-tag ${t}">${tagLabel(t)}</span>`).join('')}
+          </div>
+        </div>
+        <h1 class="post-title">${post.title}</h1>
+        <p class="post-excerpt">${post.excerpt}</p>
+      </header>
+      ${bodyHtml ? `<div class="post-body">${bodyHtml}</div>` : ''}
+    `;
+  }
+
+  render();
+</script>
+
+</body>
+</html>
