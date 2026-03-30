@@ -30,7 +30,7 @@
     <div class="hero-content">
       <div class="hero-tag">Game Developer & Designer</div>
       <h1 class="hero-name">Marx<br><span class="outline">Maciel</span> <span class="accent">Xavier</span></h1>
-      <p class="hero-bio">I've been making games since I was a kid building Minecraft maps for my friends and family &mdash; and I've never stopped. I believe the best games are built like artisanal craft: every detail, even the ones players never consciously notice, should be made with intention and care.</p>
+      <p class="hero-bio">Games are the artform that connect with me the most, and is the medium where care and attention shine the brightest. I wish to make games so bright that will iluminate even the darkest nights.</p>
       <blockquote class="hero-quote">
         "If it's not fun, why bother?"
         <cite>Reggie Fils-Aim&eacute;</cite>
@@ -62,16 +62,7 @@
           <h3 class="project-name">Vectorama</h3>
           <span class="project-type">Turn-Based Racing Roguelike</span>
         </div>
-        <p class="project-desc">A modern reimagining of a classic pen-and-paper racing game, expanded into a roguelike turn-based racer with deep upgrade mechanics. Born from a family tradition &mdash; my dad taught me this game with pen and paper, and I turned it into something we could play together from anywhere.</p>
-
-        <!--
-          TO ADD IMAGES:
-          1. Create an "images" folder next to this index.html
-          2. Replace the placeholder div with:
-             <div class="project-media-slot has-image">
-               <img src="images/your-image.png" alt="Description">
-             </div>
-        -->
+        <p class="project-desc">A modern reimagining of a classic pen-and-paper racing game, expanded into a roguelike turn-based racer with thoughtfull and expansive upgrade mechanics. This game was taught to me by my dad, and I turned it into something we could play together from anywhere.</p>
         <div class="project-media wide">
           <div class="project-media-slot">
             <div class="project-media-slot has-image">
@@ -95,13 +86,12 @@
           <span class="tag">Godot</span>
           <span class="tag">GDScript</span>
           <span class="tag">Multiplayer Networking</span>
-          <span class="tag">Up to 4 Players</span>
+          <span class="tag">Complex Synergies</span>
         </div>
         <ul class="project-highlights">
-          <li>Engineered a slot-based upgrade system where upgrades own individual slots and enforce context-aware placement rules</li>
-          <li>Built online multiplayer and local play with per-player upgrade loadouts</li>
-          <li>Dual modes: roguelike single-player with procedural progression, and competitive multiplayer with curated builds</li>
-          <li>Playable prototype with custom art, multiple tracks, and a functional upgrade tree</li>
+          <li>Engineered a robust slot-based upgrade allotment system where upgrades own individual slots and enforce context-aware placement rules</li>
+          <li>Implemented same client multiplayer and LAN multiplayer</li>
+          <li>Playable prototype with temporary art, tracks, and a selection of curated upgrades</li>
         </ul>
         <div class="project-actions">
           <!-- Replace # with your itch.io or playable build URL -->
@@ -146,8 +136,8 @@
         </div>
         <ul class="project-highlights">
           <li>Created a momentum-based parkour map ranked in the global top 20 most-downloaded maps (100K+ downloads)</li>
-          <li>Designed the editor's first cooperative mini-game &mdash; a mode the developers never built for</li>
-          <li>Built a Daytona USA-inspired race with scripted cinematic moments, syncing moving objects to player timing</li>
+          <li>Designed the editor's first cooperative mini-game with clever workarounds to bring to life a mode the developers never built for</li>
+          <li>Built a Daytona USA-inspired race with an idea to bring to life carefully thought out impactful moments to make the track memorably and the experience mesmerizing</li>
         </ul>
         <div class="project-actions">
           <!-- Replace # with your Steam Workshop link -->
@@ -162,7 +152,7 @@
           <h3 class="project-name">Top-Down Fighter</h3>
           <span class="project-type">Multiplayer Arena Brawler</span>
         </div>
-        <p class="project-desc">A multiplayer-focused top-down fighter that merges classic Zelda-style perspective with Smash Bros.-inspired movement mechanics &mdash; dash dancing, mouse-aimed attacks, and percentage-based knockback.</p>
+        <p class="project-desc">A multiplayer-focused top-down fighter that merges classic Zelda-style perspective with fast paced action of and mechanics from platform fighters.</p>
 
         <div class="project-media">
           <div class="project-media-slot">
@@ -182,6 +172,10 @@
           <span class="tag">C#</span>
           <span class="tag">Multiplayer</span>
         </div>
+        <ul class="project-highlights">
+          <li>Implemented dash dancing for a complex movement system to allow for a high risk, high reward movement system</li>
+          <li>Shielding mechanics alike to smash bros to incentivise though out shielding and incentivise engaging with your opponent</li>
+        </ul>
         <div class="project-status status-early">
           <span class="status-dot"></span> Early Development
         </div>
@@ -290,36 +284,8 @@
       <div class="section-line"></div>
     </div>
 
-    <div class="devlog-columns">
-
-      <!-- Vectorama column -->
-      <div class="devlog-col reveal">
-        <div class="devlog-col-header">
-          <span class="devlog-col-title" style="color: var(--accent);">Vectorama</span>
-          <span class="devlog-col-sub">Turn-Based Racing Roguelike</span>
-        </div>
-        <div class="devlog-feed">
-          <div class="devlog-entry">
-            <span class="devlog-entry-date">Coming Soon</span>
-            <p class="devlog-entry-text">First devlog entry &mdash; stay tuned for updates on tracks, upgrades, and multiplayer progress.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Top-Down Fighter column -->
-      <div class="devlog-col reveal">
-        <div class="devlog-col-header">
-          <span class="devlog-col-title" style="color: var(--accent3);">Top-Down Fighter</span>
-          <span class="devlog-col-sub">Multiplayer Arena Brawler</span>
-        </div>
-        <div class="devlog-feed">
-          <div class="devlog-entry">
-            <span class="devlog-entry-date">Coming Soon</span>
-            <p class="devlog-entry-text">First devlog entry &mdash; stay tuned for movement system breakdowns and combat design notes.</p>
-          </div>
-        </div>
-      </div>
-
+    <div class="devlog-columns" id="devlog-columns">
+      <!-- injected by JS -->
     </div>
 
     <div class="devlog-cta reveal">
@@ -358,6 +324,71 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+<script>
+  const DEVLOG_DEFAULTS = [
+    {
+      id: 'vectorama-devlog-1',
+      title: 'Devlog #1: Online Multiplayer in a Turn-Based Racer',
+      excerpt: "Turn-based multiplayer is deceptively tricky. Here's how I approached latency, state sync, and keeping the race feeling snappy even over a network.",
+      date: 'Coming Soon',
+      tags: ['vectorama'],
+      published: false
+    },
+    {
+      id: 'fighter-devlog-1',
+      title: 'Devlog #1: Movement First, Everything Else Second',
+      excerpt: "I spent the first two months only working on movement. No combat, no art, no UI. Here's why that was the right call.",
+      date: 'Coming Soon',
+      tags: ['fighter'],
+      published: false
+    }
+  ];
+
+  const COLS = [
+    { tag: 'vectorama', label: 'Vectorama',       sub: 'Turn-Based Racing Roguelike',  color: 'var(--accent)'  },
+    { tag: 'fighter',   label: 'Top-Down Fighter', sub: 'Multiplayer Arena Brawler',    color: 'var(--accent3)' }
+  ];
+
+  function renderDevlog() {
+    const stored = localStorage.getItem('devlog_posts');
+    const posts  = stored ? JSON.parse(stored) : DEVLOG_DEFAULTS;
+    const container = document.getElementById('devlog-columns');
+
+    container.innerHTML = COLS.map(col => {
+      const latest = posts.filter(p => p.tags.includes(col.tag)).slice(-1)[0];
+      const href   = latest && latest.published ? `posts/${latest.id}.html` : 'blog.html';
+
+      const entryHTML = latest ? `
+        <div class="devlog-entry-date">${latest.date}</div>
+        <p class="devlog-entry-text">${latest.excerpt}</p>
+      ` : `
+        <div class="devlog-entry-date">Coming Soon</div>
+        <p class="devlog-entry-text">No entries yet &mdash; check back soon.</p>
+      `;
+
+      return `
+        <a href="${href}" class="devlog-col devlog-col-link reveal">
+          <div class="devlog-col-header">
+            <span class="devlog-col-title" style="color:${col.color};">${col.label}</span>
+            <span class="devlog-col-sub">${col.sub}</span>
+          </div>
+          <div class="devlog-feed">
+            <div class="devlog-entry">
+              ${latest ? `<div class="devlog-entry-title">${latest.title}</div>` : ''}
+              ${entryHTML}
+            </div>
+          </div>
+          <span class="devlog-col-readmore" style="color:${col.color};">Read devlog →</span>
+        </a>
+      `;
+    }).join('');
+
+    container.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
+
+  renderDevlog();
 </script>
 
 </body>
