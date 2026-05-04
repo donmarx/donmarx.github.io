@@ -53,10 +53,12 @@
   }
 
   function tagLabel(tag) {
-    if (tag === 'vectorama') return 'Vectorama';
-    if (tag === 'fighter') return 'Top-Down Fighter';
-    if (tag === 'design') return 'Game Design';
-    return tag;
+    const labels = {
+      vectorama: 'Vectorama', fighter: 'Top-Down Fighter', design: 'Game Design',
+      mechanics: 'Mechanics', 'level-design': 'Level Design', ideas: 'Ideas',
+      review: 'Review', thoughts: 'Thoughts', events: 'Events', other: 'Other'
+    };
+    return labels[tag] || tag;
   }
 
   function render() {

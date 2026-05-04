@@ -41,6 +41,13 @@
       <button class="filter-btn" data-filter="vectorama">Vectorama</button>
       <button class="filter-btn" data-filter="fighter">Top-Down Fighter</button>
       <button class="filter-btn" data-filter="design">Game Design</button>
+      <button class="filter-btn" data-filter="mechanics">Mechanics</button>
+      <button class="filter-btn" data-filter="level-design">Level Design</button>
+      <button class="filter-btn" data-filter="ideas">Ideas</button>
+      <button class="filter-btn" data-filter="review">Review</button>
+      <button class="filter-btn" data-filter="thoughts">Thoughts</button>
+      <button class="filter-btn" data-filter="events">Events</button>
+      <button class="filter-btn" data-filter="other">Other</button>
     </div>
 
     <div class="post-list" id="post-list">
@@ -65,19 +72,27 @@
   }
 
   function tagLabel(tag) {
-    if (tag === 'vectorama') return 'Vectorama';
-    if (tag === 'fighter') return 'Top-Down Fighter';
-    if (tag === 'design') return 'Game Design';
-    return tag;
+    const labels = {
+      vectorama: 'Vectorama', fighter: 'Top-Down Fighter', design: 'Game Design',
+      mechanics: 'Mechanics', 'level-design': 'Level Design', ideas: 'Ideas',
+      review: 'Review', thoughts: 'Thoughts', events: 'Events', other: 'Other'
+    };
+    return labels[tag] || tag;
+  }
+
+  function parseDate(str) {
+    if (!str || str === 'Coming Soon') return Infinity;
+    const p = str.split('/');
+    return p.length === 3 ? new Date(p[2], p[1] - 1, p[0]).getTime() : Infinity;
   }
 
   function renderPosts(filter = 'all') {
     const posts = loadPosts();
     const list = document.getElementById('post-list');
 
-    const filtered = filter === 'all'
-      ? posts
-      : posts.filter(p => p.tags.includes(filter));
+    const filtered = (filter === 'all' ? posts : posts.filter(p => p.tags.includes(filter)))
+      .slice()
+      .sort((a, b) => parseDate(a.date) - parseDate(b.date));
 
     if (filtered.length === 0) {
       list.innerHTML = '<p class="no-posts">No posts here yet.</p>';

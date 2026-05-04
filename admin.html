@@ -94,6 +94,13 @@
               <label class="tag-check"><input type="checkbox" value="vectorama"> Vectorama</label>
               <label class="tag-check"><input type="checkbox" value="fighter"> Top-Down Fighter</label>
               <label class="tag-check"><input type="checkbox" value="design"> Game Design</label>
+              <label class="tag-check"><input type="checkbox" value="mechanics"> Mechanics</label>
+              <label class="tag-check"><input type="checkbox" value="level-design"> Level Design</label>
+              <label class="tag-check"><input type="checkbox" value="ideas"> Ideas</label>
+              <label class="tag-check"><input type="checkbox" value="review"> Review</label>
+              <label class="tag-check"><input type="checkbox" value="thoughts"> Thoughts</label>
+              <label class="tag-check"><input type="checkbox" value="events"> Events</label>
+              <label class="tag-check"><input type="checkbox" value="other"> Other</label>
             </div>
           </div>
         </div>
@@ -153,10 +160,12 @@
 
   // ---- Tag helpers ----
   function tagLabel(tag) {
-    if (tag === 'vectorama') return 'Vectorama';
-    if (tag === 'fighter') return 'Top-Down Fighter';
-    if (tag === 'design') return 'Game Design';
-    return tag;
+    const labels = {
+      vectorama: 'Vectorama', fighter: 'Top-Down Fighter', design: 'Game Design',
+      mechanics: 'Mechanics', 'level-design': 'Level Design', ideas: 'Ideas',
+      review: 'Review', thoughts: 'Thoughts', events: 'Events', other: 'Other'
+    };
+    return labels[tag] || tag;
   }
 
   // ---- Render admin list ----
