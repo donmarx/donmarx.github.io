@@ -15,7 +15,7 @@ const DEFAULT_POSTS = [
     "id": "fighter-devlog-1",
     "title": "Devlog #2: Fighting Games - Schmovement First, Everything Else Second",
     "excerpt": "I spent the first two months only working on the game movement. No art, no UI, no combat even. Here's why that was the right call.",
-    "date": "31/03/2026",
+    "date": "26/04/2026",
     "tags": [
       "fighter",
       "design"
@@ -27,12 +27,13 @@ const DEFAULT_POSTS = [
     "id": "devlog-2-leaning-to-implement-a-bajillion-upgrades",
     "title": "Devlog #2: Leaning to Implement a Bajillion Upgrades",
     "excerpt": "From simple to complex. A game can be as fun and as plain as the content you put in it. Anything is possible in video-games you just have to deal with the headache to implement that.",
-    "date": "Coming Soon",
+    "date": "18/04/2026",
     "tags": [
       "vectorama",
       "design"
     ],
-    "published": false
+    "published": true,
+    "body": "Pitcure the scene, I had the main games mechanics down and a map to test and it all worked well. I had made the famous pen and paper game into something I could play online with my father...\n\nNow what?\n\nIs that it for the project or do I want to release it on Steam? yeah sure, could be fun.\n\nBut is the game ready to be on Steam? No, hell no.\n\nThe gaming scene has evolved alot in a short time and whereas this could be a full game back in the day, right now it just would'nt cut it. A turn based game in my view should posess deep mechanics and allow for a wide variety of of choices to be made each turn, and I wouldnt count 5 (up down left right maintain) as a wide variety.\n\nAlso when you found the best racing line all games would boil down to just \"get on that line and do the moves\" and if the player in first did that, no one could ever overtake him.\n\nThat when it hit me like a truck.\n\n「UPGRADES」\n\nBy giving players a wide pool of upgrades to chose from I could allow all the matches to be dynamic and complex. So now I have to go about thinking and implementing the upgrades.\n\nI currently have mapped out 95 upgrades where about 85 are implemented, but how do I keep track?\n\nVery simple, I have a huge google sheet spreadsheet with all 95 upgrades and I just go down it testing them 4 by 4 (thats the arbitrary upgrade cap I have right now [subject to change]) and by testing I mean booting up a stage and trying it normally, and if that works I try as best as I can to break it.\n\nAt first I thought of keeping the game more boots on the ground but I loved it when games really push the medium and whats capable so now I'm tackling the challenge of bringing these crazy ideas to life!"
   },
   {
     "id": "devlog-1-why-a-fighting-game",
